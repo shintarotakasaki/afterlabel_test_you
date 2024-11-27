@@ -17,7 +17,7 @@ def xl_data_get():
     if after_xl is not None:
         file_mime = after_xl.type
 
-        if file_mime == `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`:
+        if file_mime == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
             file = BytesIO(after_xl.getvalue())
             wb = load_workbook(filename=file)
             sheet = wb.active
