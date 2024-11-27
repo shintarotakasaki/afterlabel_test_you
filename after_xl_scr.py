@@ -14,16 +14,16 @@ from io import BytesIO
 def xl_data_get():
   after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
 
-    if after_xl is not None:
-      file_mime = after_xl.type
+if after_xl is not None:
+    file_mime = after_xl.type
 
-      if file_mime == `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`:
+    if file_mime == `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`:
         file = BytesIO(after_xl.getvalue())
         wb = load_workbook(filename=file)
         sheet = wb.active
         st.write(f"Sheet title: {sheet.title}")
 
-      else:
+    else:
         st.write("エクセルファイル(.xlsx)をアップロードしてください")
         st.stop()
 
