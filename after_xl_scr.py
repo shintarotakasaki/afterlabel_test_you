@@ -26,3 +26,5 @@ if after_xl is not None:
   else:
     st.write("エクセルファイル(.xlsx)をアップロードしてください")
     st.stop()
+
+xl_data_get()
