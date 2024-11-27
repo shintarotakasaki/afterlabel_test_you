@@ -11,7 +11,7 @@ from openpyxl import load_workbook
 import streamlit as st
 from io import BytesIO
 
-def xl_data_get()
+def xl_data_get():
   after_xl = st.file_uploder("アフター申請書エクセルをアップロードしてください")
 
 if after_xl is not None:
