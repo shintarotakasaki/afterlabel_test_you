@@ -11,20 +11,42 @@ from openpyxl import load_workbook
 import streamlit as st
 from io import BytesIO
 
-def xl_data_get():
+rects = []
+xlpoint = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
+xlvalue = []
+
+def xl_data_upload(rects):
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
     if after_xl is not None:
         file_mime = after_xl.type
-
         if file_mime == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
             file = BytesIO(after_xl.getvalue())
             wb = load_workbook(filename=file)
             sheet = wb.active
-            st.write(f"Sheet title: {sheet.title}")
-
+            #st.write(f"Sheet title: {sheet.title}")
+            rects = ["AC9","AM9","AC11","AC13","AC15","AC19","AH3","A11","AB4"]
+            for rect in rects:
+                xlvalue.append(sheet[rect].value)
+            
         else:
             st.write("エクセルファイル(.xlsx)をアップロードしてください")
             st.stop()
 
 xl_data_get()
+
+def afterxl_dataget (xlvalue):
+    import shutil
+            github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
+            # ファイルをダウンロードして一時ファイルとして保存
+            response = requests.get(github_url,stream=True)
+            if response.status_code == 200:
+                file_path = "伝票(規格品)_ラベル_指示書.xlsm"  # ここで file_path を定義
+                with open("伝票(規格品)_ラベル_指示書.xlsm",'wb')as f:
+                    response.raw.decode_content = True
+                    shutil.copyfileobj(response.raw, f)
+            try:
+                wb_demp = load_workbook(file_path, keep_vba=True)
+                ws_demp = wb_demp['納品書控(製品)']
+                wb_demp.active = ws_demp
+    
