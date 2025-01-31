@@ -40,6 +40,7 @@ def xl_data_upload(sheet):
         
 
 def main ():
+    st.title("アフター伝票作成")
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
     if after_xl is not None:
