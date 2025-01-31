@@ -15,9 +15,31 @@ import shutil
 
 xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
 
-def xl_data_upload():
+def xl_data_upload(sheet):
     labels = []
     values = []
+                #st.write(f"Sheet title: {sheet.title}")
+    rects = [
+        ("G19","AC9-1"),
+        ("G20","AC9"),
+        ("L15","AM9"),
+        ("N20","AC11"),
+        ("G21","AC13"),
+        ("N21","AC15"),
+        ("G23","AC19-1"),
+        ("Q23","AC19"),
+        ("H28","A11")
+            ]
+
+    for rect in rects:
+        points,label = rect
+        labels.append(label)
+        for point in points:
+            values.append(sheet[point].value)
+    return labels,values
+        
+
+def main ():
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
     if after_xl is not None:
@@ -27,39 +49,11 @@ def xl_data_upload():
                 file = BytesIO(after_xl.getvalue())
                 wb = load_workbook(filename=file)
                 sheet = wb.active
-                #st.write(f"Sheet title: {sheet.title}")
-                rects = [
-                    ("G19","AC9-1"),
-                    ("G20","AC9"),
-                    ("L15","AM9"),
-                    ("N20","AC11"),
-                    ("G21","AC13"),
-                    ("N21","AC15"),
-                    ("G23","AC19-1"),
-                    ("Q23","AC19"),
-                    ("H28","A11")
-                        ]
-
-                for rect in rects:
-                    points,label = rect
-                    labels.append(label)
-                    for point in points:
-                        values.append(sheet[point].value)
-
-                        
-                        
+                labels,values = xl_data_upload(sheet)
             except Exception as e:
                 st.error(f"エラーが発生しました: {e}")
-                return None, None
+        
                 
-        else:
-            st.write("エクセルファイル(.xlsx)をアップロードしてください")
-            st.stop()
-            
-        for label, value in zip(labels, values):
-            st.write(f"**{label}**: {value}")
-
-def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
