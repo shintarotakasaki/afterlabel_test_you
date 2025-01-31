@@ -87,4 +87,10 @@ def afterxl_dataget (values):
         except Exception as e:
             st.error(f"Excelファイルの処理中にエラーが発生しました: {e}")
 
+    finally:  # 例外の発生に関係なく実行される処理
+        print("処理が完了しました") 
+    
+    except Exception as e:  # 例外が発生した場合の処理
+        st.error(f"エラーが発生しました: {e}")
+
 # ... (他のコードは省略)
