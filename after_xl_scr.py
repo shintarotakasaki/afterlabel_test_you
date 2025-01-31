@@ -15,7 +15,7 @@ import shutil
 
 xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
 
-def xl_data_upload(rects):
+def xl_data_upload():
     labels = []
     values = []
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
@@ -58,8 +58,6 @@ def xl_data_upload(rects):
             
         for label, value in zip(labels, values):
             st.write(f"**{label}**: {value}")
-
-    afterxl_dataget (values):
 
 def afterxl_dataget ():
     """
