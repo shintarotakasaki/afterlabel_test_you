@@ -43,6 +43,8 @@ def xl_data_upload(rects):
                     labels.append(label)
                     for point in points:
                         values.append(sheet[point].value)
+
+                        
                         
             except Exception as e:
                 st.error(f"エラーが発生しました: {e}")
@@ -51,6 +53,9 @@ def xl_data_upload(rects):
         else:
             st.write("エクセルファイル(.xlsx)をアップロードしてください")
             st.stop()
+            
+        for label, value in zip(labels, values):
+            st.write(f"**{label}**: {value}")
 
 xl_data_get()
 
