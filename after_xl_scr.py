@@ -59,9 +59,9 @@ def xl_data_upload(rects):
         for label, value in zip(labels, values):
             st.write(f"**{label}**: {value}")
 
-xl_data_get()
+    afterxl_dataget (values):
 
-def afterxl_dataget (values):
+def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
