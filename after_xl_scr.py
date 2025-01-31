@@ -62,17 +62,29 @@ def xl_data_upload(rects):
 xl_data_get()
 
 def afterxl_dataget (values):
-    import shutil
-            github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
-            # ファイルをダウンロードして一時ファイルとして保存
-            response = requests.get(github_url,stream=True)
-            if response.status_code == 200:
-                file_path = "伝票(規格品)_ラベル_指示書.xlsm"  # ここで file_path を定義
-                with open("伝票(規格品)_ラベル_指示書.xlsm",'wb')as f:
-                    response.raw.decode_content = True
-                    shutil.copyfileobj(response.raw, f)
-            try:
-                wb_demp = load_workbook(file_path, keep_vba=True)
-                ws_demp = wb_demp['納品書控(製品)']
-                wb_demp.active = ws_demp
-    
+    """
+    GitHubからExcelファイルをダウンロードし、開く関数。
+    """
+    try:
+        # インデントを修正
+        github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
+        # ファイルをダウンロードして一時ファイルとして保存
+        response = requests.get(github_url,stream=True)
+        if response.status_code == 200:
+            file_path = "伝票(規格品)_ラベル_指示書.xlsm"  # ここで file_path を定義
+            with open("伝票(規格品)_ラベル_指示書.xlsm",'wb')as f:
+                response.raw.decode_content = True
+                shutil.copyfileobj(response.raw, f)
+        try:
+            wb_demp = load_workbook(file_path, keep_vba=True)
+            ws_demp = wb_demp['納品書控(製品)']
+            wb_demp.active = ws_demp
+
+            # ここでwb_dempを使って処理を行う
+
+        except requests.exceptions.RequestException as e:
+            st.error(f"ファイルのダウンロード中にエラーが発生しました: {e}")
+        except Exception as e:
+            st.error(f"Excelファイルの処理中にエラーが発生しました: {e}")
+
+# ... (他のコードは省略)
