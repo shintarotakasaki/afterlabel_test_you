@@ -10,6 +10,8 @@ Original file is located at
 from openpyxl import load_workbook
 import streamlit as st
 from io import BytesIO
+import requests
+import shutil
 
 xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
 
